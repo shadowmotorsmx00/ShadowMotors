@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Shadow Collection — Catálogo exclusivo de vehículos deportivos, gran turismo y sedanes de alto lujo." />
+  <title>Collection — SHADOW MOTORS</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/collection.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand-logo" aria-label="Shadow Motors Inicio">SHADOW MOTORS</a>
+
+      <nav class="nav-menu" id="navMenu" aria-label="Navegación principal">
+        <ul class="nav-list">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="collection.html" class="nav-link is-active">Collection</a></li>
+          <li><a href="bespoke.html" class="nav-link">Bespoke</a></li>
+          <li><a href="performance.html" class="nav-link">Performance</a></li>
+          <li><a href="about.html" class="nav-link">About Us</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a href="collection.html#favorites" class="icon-btn" title="Favoritos">
+          <span>★</span>
+          <span class="action-label">Favoritos</span>
+        </a>
+        <a href="contact.html" class="icon-btn" title="Cuenta / Acceso">
+          <span>◎</span>
+          <span class="action-label">Cuenta</span>
+        </a>
+        <button type="button" class="menu-toggle" aria-label="Abrir o cerrar menú" aria-expanded="false" aria-controls="navMenu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <span class="eyebrow">División 01 · Inventario Curado</span>
+        <h1 class="section-title">Shadow Collection</h1>
+        <p class="section-lead">
+          Vehículos deportivos, gran turismo y ediciones limitadas seleccionadas bajo estrictos
+          criterios de procedencia, configuración y estado mecánico.
+        </p>
+      </div>
+    </section>
+
+    <section class="section" id="favorites">
+      <div class="container">
+        <!-- Barra superior: Search, Sort By, Favoritos -->
+        <div class="catalog-toolbar">
+          <div class="field-group">
+            <label for="searchInput" class="field-label">Search</label>
+            <input type="search" id="searchInput" class="input-control" placeholder="Buscar por marca, modelo o característica..." />
+          </div>
+
+          <div class="field-group">
+            <label for="sortSelect" class="field-label">Sort By</label>
+            <select id="sortSelect" class="select-control">
+              <option value="featured">Destacados</option>
+              <option value="price-asc">Precio: Menor a Mayor</option>
+              <option value="price-desc">Precio: Mayor a Menor</option>
+              <option value="year-desc">Año: Más Reciente</option>
+              <option value="power-desc">Potencia: Mayor HP</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <span class="field-label">Guardados</span>
+            <button type="button" id="toggleFavoritesBtn" class="btn btn--outline">Ver Favoritos (0)</button>
+          </div>
+
+          <div class="field-group">
+            <span class="field-label">Acción</span>
+            <button type="button" id="resetFiltersBtn" class="btn btn--outline">Limpiar Filtros</button>
+          </div>
+        </div>
+
+        <!-- Panel con los 8 filtros -->
+        <div class="filters-panel" aria-label="Filtros de vehículos">
+          <div class="filters-grid">
+            <div class="field-group">
+              <label for="filterBrand" class="field-label">Marca</label>
+              <select id="filterBrand" class="select-control"><option value="">Todas las marcas</option></select>
+            </div>
+
+            <div class="field-group">
+              <label for="filterModel" class="field-label">Modelo</label>
+              <select id="filterModel" class="select-control"><option value="">Todos los modelos</option></select>
+            </div>
+
+            <div class="field-group">
+              <label for="filterYear" class="field-label">Año</label>
+              <select id="filterYear" class="select-control"><option value="">Todos los años</option></select>
+            </div>
+
+            <div class="field-group">
+              <label for="filterPrice" class="field-label">Precio Máximo</label>
+              <select id="filterPrice" class="select-control">
+                <option value="">Sin límite</option>
+                <option value="180000">Hasta $180,000 USD</option>
+                <option value="250000">Hasta $250,000 USD</option>
+                <option value="350000">Hasta $350,000 USD</option>
+              </select>
+            </div>
+
+            <div class="field-group">
+              <label for="filterCategory" class="field-label">Categoría</label>
+              <select id="filterCategory" class="select-control"><option value="">Todas las categorías</option></select>
+            </div>
+
+            <div class="field-group">
+              <label for="filterTransmission" class="field-label">Transmisión</label>
+              <select id="filterTransmission" class="select-control"><option value="">Todas</option></select>
+            </div>
+
+            <div class="field-group">
+              <label for="filterPower" class="field-label">Potencia Mínima</label>
+              <select id="filterPower" class="select-control">
+                <option value="">Cualquier potencia</option>
+                <option value="500">500+ HP</option>
+                <option value="600">600+ HP</option>
+                <option value="650">650+ HP</option>
+              </select>
+            </div>
+
+            <div class="field-group">
+              <label for="filterAvailability" class="field-label">Disponibilidad</label>
+              <select id="filterAvailability" class="select-control"><option value="">Todas</option></select>
+            </div>
+          </div>
+
+          <div class="filters-footer">
+            <span id="resultsCount" class="results-count">Cargando inventario...</span>
+            <span class="results-count">Selecciona hasta 3 unidades para comparar</span>
+          </div>
+        </div>
+
+        <!-- Cuadrícula de vehículos -->
+        <div id="catalogGrid" class="catalog-grid"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Barra flotante de comparación -->
+  <div id="compareBar" class="compare-bar" role="region" aria-label="Comparador de vehículos">
+    <div class="container compare-bar__inner">
+      <p><strong id="compareCount">0</strong> vehículo(s) seleccionado(s) para comparación</p>
+      <div style="display:flex;gap:0.75rem;">
+        <button type="button" id="clearCompareBtn" class="btn btn--outline">Limpiar</button>
+        <button type="button" id="openCompareBtn" class="btn btn--primary">Comparar Ahora</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Ficha Individual -->
+  <div id="detailModal" class="modal" role="dialog" aria-modal="true" aria-label="Detalles del vehículo">
+    <div class="modal__dialog">
+      <button type="button" class="modal__close" data-close-modal aria-label="Cerrar">✕</button>
+      <div id="detailModalBody"></div>
+    </div>
+  </div>
+
+  <!-- Modal Comparador -->
+  <div id="compareModal" class="modal" role="dialog" aria-modal="true" aria-label="Comparación de vehículos">
+    <div class="modal__dialog">
+      <button type="button" class="modal__close" data-close-modal aria-label="Cerrar">✕</button>
+      <div id="compareModalBody"></div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="brand-logo">SHADOW MOTORS</a>
+          <p class="brand-slogan">Redefining Automotive Luxury</p>
+          <p>Vehículos exclusivos, personalización estética y optimización de rendimiento con enfoque sobrio y de precisión.</p>
+        </div>
+        <div>
+          <h3 class="footer-heading">Navegación</h3>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="collection.html">Collection</a></li>
+            <li><a href="bespoke.html">Bespoke</a></li>
+            <li><a href="performance.html">Performance</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="footer-heading">Contacto y Redes</h3>
+          <ul class="footer-links">
+            <li><a href="mailto:concierge@shadowmotors.example">concierge@shadowmotors.example</a></li>
+            <li><a href="tel:+15550192834">+1 (555) 019-2834</a></li>
+            <li><a href="contact.html">Agendar Cita / Cotizar</a></li>
+            <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+            <li><a href="https://whatsapp.com" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="footer-heading">Ubicación</h3>
+          <ul class="footer-links">
+            <li>Shadow Motors Atelier &amp; Showroom</li>
+            <li>Av. del Parque 450, Distrito Financiero</li>
+            <li>Atención con cita previa</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© <span data-current-year>2026</span> SHADOW MOTORS. Todos los derechos reservados.</p>
+        <div class="footer-legal">
+          <a href="contact.html#privacy">Política de Privacidad</a>
+          <a href="contact.html#terms">Términos y Condiciones</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/collection.js"></script>
+</body>
+</html>

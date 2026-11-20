@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Shadow Motors — Redefining Automotive Luxury. Vehículos deportivos y de lujo, personalización estética Bespoke y optimización de rendimiento Performance." />
+  <title>SHADOW MOTORS — Redefining Automotive Luxury</title>
+
+  <!-- Tipografías elegantes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Hojas de estilo -->
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/home.css" />
+</head>
+<body>
+  <!-- Encabezado principal -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand-logo" aria-label="Shadow Motors Inicio">SHADOW MOTORS</a>
+
+      <nav class="nav-menu" id="navMenu" aria-label="Navegación principal">
+        <ul class="nav-list">
+          <li><a href="index.html" class="nav-link is-active">Home</a></li>
+          <li><a href="collection.html" class="nav-link">Collection</a></li>
+          <li><a href="bespoke.html" class="nav-link">Bespoke</a></li>
+          <li><a href="performance.html" class="nav-link">Performance</a></li>
+          <li><a href="about.html" class="nav-link">About Us</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a href="collection.html#favorites" class="icon-btn" title="Favoritos">
+          <span>★</span>
+          <span class="action-label">Favoritos</span>
+        </a>
+        <a href="contact.html" class="icon-btn" title="Cuenta / Acceso">
+          <span>◎</span>
+          <span class="action-label">Cuenta</span>
+        </a>
+
+        <button
+          type="button"
+          class="menu-toggle"
+          aria-label="Abrir o cerrar menú"
+          aria-expanded="false"
+          aria-controls="navMenu"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="home-main">
+    <!-- Hero principal -->
+    <section class="hero" aria-labelledby="heroTitle">
+      <div class="hero__media">
+        <img
+          src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1800&q=80"
+          alt="Vehículo deportivo oscuro en entorno minimalista"
+          class="hero__img"
+        />
+      </div>
+      <div class="hero__overlay" aria-hidden="true"></div>
+
+      <div class="container hero__content">
+        <span class="eyebrow">Casa Automotriz Exclusiva</span>
+        <h1 id="heroTitle" class="hero__brand">SHADOW MOTORS</h1>
+        <p class="hero__slogan">Redefining Automotive Luxury</p>
+        <p class="hero__description">
+          Curaduría de superdeportivos y sedanes de alta gama, ingeniería estética a medida
+          y calibración de alto rendimiento concebidas para quienes exigen carácter absoluto.
+        </p>
+
+        <div class="hero__actions">
+          <a href="collection.html" class="btn btn--primary">Explore Collection</a>
+          <a href="bespoke.html" class="btn btn--outline">Discover Bespoke</a>
+          <a href="performance.html" class="btn btn--outline">Explore Performance</a>
+          <a href="about.html" class="btn btn--ghost">About Shadow</a>
+          <a href="contact.html" class="btn btn--ghost">Contact Us</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Vehículos destacados -->
+    <section class="section" aria-labelledby="featuredTitle">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <span class="eyebrow">Selección Destacada</span>
+            <h2 id="featuredTitle" class="section-title">Vehículos de Referencia</h2>
+          </div>
+          <a href="collection.html" class="btn btn--outline">Ver Catálogo Completo</a>
+        </div>
+
+        <div class="featured-grid">
+          <article class="vehicle-card">
+            <div class="vehicle-card__media">
+              <img
+                src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?auto=format&fit=crop&w=1000&q=80"
+                alt="Porsche 911 GT3 RS en acabado oscuro"
+              />
+            </div>
+            <div class="vehicle-card__body">
+              <span class="vehicle-card__meta">Porsche · 2025 · Disponible</span>
+              <h3 class="vehicle-card__title">911 GT3 RS Shadow Spec</h3>
+              <div class="vehicle-card__specs">
+                <span>518 HP</span>
+                <span>PDK 7 vel.</span>
+              </div>
+              <p class="vehicle-card__price">$285,000 USD</p>
+            </div>
+          </article>
+
+          <article class="vehicle-card">
+            <div class="vehicle-card__media">
+              <img
+                src="https://images.unsplash.com/photo-1617531653332-bd46c24f2068?auto=format&fit=crop&w=1000&q=80"
+                alt="Mercedes-AMG GT Coupé negro"
+              />
+            </div>
+            <div class="vehicle-card__body">
+              <span class="vehicle-card__meta">Mercedes-AMG · 2025 · Disponible</span>
+              <h3 class="vehicle-card__title">AMG GT 63 Coupé Nocturne</h3>
+              <div class="vehicle-card__specs">
+                <span>577 HP</span>
+                <span>AMG Speedshift</span>
+              </div>
+              <p class="vehicle-card__price">$210,000 USD</p>
+            </div>
+          </article>
+
+          <article class="vehicle-card">
+            <div class="vehicle-card__media">
+              <img
+                src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=1000&q=80"
+                alt="BMW M8 Competition en tono grafito"
+              />
+            </div>
+            <div class="vehicle-card__body">
+              <span class="vehicle-card__meta">BMW M · 2024 · Disponible</span>
+              <h3 class="vehicle-card__title">M8 Competition Carbon Edition</h3>
+              <div class="vehicle-card__specs">
+                <span>617 HP</span>
+                <span>M Steptronic</span>
+              </div>
+              <p class="vehicle-card__price">$168,000 USD</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Las tres divisiones de Shadow Motors -->
+    <section class="section section--alt" aria-labelledby="divisionsTitle">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <span class="eyebrow">Arquitectura de Marca</span>
+            <h2 id="divisionsTitle" class="section-title">Tres Divisiones Especializadas</h2>
+          </div>
+        </div>
+
+        <div class="divisions-grid">
+          <article class="division-card">
+            <img
+              src="https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1000&q=80"
+              alt="Shadow Collection"
+              class="division-card__img"
+            />
+            <div class="division-card__overlay" aria-hidden="true"></div>
+            <div class="division-card__content">
+              <span class="eyebrow">División 01</span>
+              <h3 class="division-card__title">Shadow Collection</h3>
+              <p class="division-card__text">
+                Comercialización de vehículos deportivos, gran turismo y ediciones exclusivas
+                con historial verificado.
+              </p>
+              <a href="collection.html" class="btn btn--outline">Explore Collection</a>
+            </div>
+          </article>
+
+          <article class="division-card">
+            <img
+              src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=1000&q=80"
+              alt="Shadow Bespoke"
+              class="division-card__img"
+            />
+            <div class="division-card__overlay" aria-hidden="true"></div>
+            <div class="division-card__content">
+              <span class="eyebrow">División 02</span>
+              <h3 class="division-card__title">Shadow Bespoke</h3>
+              <p class="division-card__text">
+                Personalización estética integral: fibra de carbono, acabados exclusivos,
+                tapicería artesanal y rines forjados.
+              </p>
+              <a href="bespoke.html" class="btn btn--outline">Discover Bespoke</a>
+            </div>
+          </article>
+
+          <article class="division-card">
+            <img
+              src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1000&q=80"
+              alt="Shadow Performance"
+              class="division-card__img"
+            />
+            <div class="division-card__overlay" aria-hidden="true"></div>
+            <div class="division-card__content">
+              <span class="eyebrow">División 03</span>
+              <h3 class="division-card__title">Shadow Performance</h3>
+              <p class="division-card__text">
+                Ingeniería mecánica y dinámica: recalibración de ECU, escapes de alto flujo,
+                suspensión y frenos de competición.
+              </p>
+              <a href="performance.html" class="btn btn--outline">Explore Performance</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Pie de página -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="brand-logo">SHADOW MOTORS</a>
+          <p class="brand-slogan">Redefining Automotive Luxury</p>
+          <p>
+            Vehículos exclusivos, personalización estética y optimización de rendimiento
+            con enfoque sobrio y de precisión.
+          </p>
+        </div>
+
+        <div>
+          <h3 class="footer-heading">Navegación</h3>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="collection.html">Collection</a></li>
+            <li><a href="bespoke.html">Bespoke</a></li>
+            <li><a href="performance.html">Performance</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="footer-heading">Contacto y Redes</h3>
+          <ul class="footer-links">
+            <li><a href="mailto:concierge@shadowmotors.example">concierge@shadowmotors.example</a></li>
+            <li><a href="tel:+15550192834">+1 (555) 019-2834</a></li>
+            <li><a href="contact.html">Agendar Cita / Cotizar</a></li>
+            <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+            <li><a href="https://whatsapp.com" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="footer-heading">Ubicación</h3>
+          <ul class="footer-links">
+            <li>Shadow Motors Atelier &amp; Showroom</li>
+            <li>Av. del Parque 450, Distrito Financiero</li>
+            <li>Atención con cita previa</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© <span data-current-year>2026</span> SHADOW MOTORS. Todos los derechos reservados.</p>
+        <div class="footer-legal">
+          <a href="contact.html#privacy">Política de Privacidad</a>
+          <a href="contact.html#terms">Términos y Condiciones</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

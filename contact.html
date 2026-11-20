@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Contacto Shadow Motors — Solicita una cotización, agenda una cita privada o comunícate con nuestro equipo." />
+  <title>Contact — SHADOW MOTORS</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/pages.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand-logo" aria-label="Shadow Motors Inicio">SHADOW MOTORS</a>
+
+      <nav class="nav-menu" id="navMenu" aria-label="Navegación principal">
+        <ul class="nav-list">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="collection.html" class="nav-link">Collection</a></li>
+          <li><a href="bespoke.html" class="nav-link">Bespoke</a></li>
+          <li><a href="performance.html" class="nav-link">Performance</a></li>
+          <li><a href="about.html" class="nav-link">About Us</a></li>
+          <li><a href="contact.html" class="nav-link is-active">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a href="collection.html#favorites" class="icon-btn" title="Favoritos">
+          <span>★</span>
+          <span class="action-label">Favoritos</span>
+        </a>
+        <a href="contact.html" class="icon-btn" title="Cuenta / Acceso">
+          <span>◎</span>
+          <span class="action-label">Cuenta</span>
+        </a>
+        <button type="button" class="menu-toggle" aria-label="Abrir o cerrar menú" aria-expanded="false" aria-controls="navMenu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section" style="border-bottom:1px solid var(--color-border);background:var(--gradient-surface);">
+      <div class="container">
+        <span class="eyebrow">Atención Privada</span>
+        <h1 class="section-title">Contact Shadow Motors</h1>
+        <p class="section-lead">
+          Comunícate con nuestros asesores para cotizar un vehículo de Collection,
+          planificar un proyecto Bespoke o agendar una cita en nuestro showroom.
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="contact-layout">
+          <!-- Formulario principal -->
+          <div class="form-panel">
+            <span class="eyebrow">Formulario de Atención</span>
+            <h2 id="formDynamicTitle" class="section-title" style="margin-bottom:1.75rem;">Enviar Consulta Directa</h2>
+
+            <form id="contactForm" novalidate>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="contactName" class="form-label">Nombre *</label>
+                  <input type="text" id="contactName" class="form-input" placeholder="Nombre completo" required />
+                </div>
+
+                <div class="form-group">
+                  <label for="contactEmail" class="form-label">Correo electrónico *</label>
+                  <input type="email" id="contactEmail" class="form-input" placeholder="correo@ejemplo.com" required />
+                </div>
+
+                <div class="form-group">
+                  <label for="contactPhone" class="form-label">Teléfono</label>
+                  <input type="tel" id="contactPhone" class="form-input" placeholder="+1 (555) 000-0000" />
+                </div>
+
+                <div class="form-group">
+                  <label for="contactSubject" class="form-label">Asunto</label>
+                  <select id="contactSubject" class="form-select">
+                    <option value="general">Consulta General</option>
+                    <option value="quote">Request a Quote (Cotización)</option>
+                    <option value="appointment">Book an Appointment (Agendar Cita)</option>
+                    <option value="bespoke">Shadow Bespoke (Personalización)</option>
+                    <option value="performance">Shadow Performance (Rendimiento)</option>
+                    <option value="info">Información de Vehículo</option>
+                  </select>
+                </div>
+
+                <div class="form-group form-group--full" id="appointmentDateGroup" style="display:none;">
+                  <label for="appointmentDate" class="form-label">Fecha preferida para la cita</label>
+                  <input type="date" id="appointmentDate" class="form-input" />
+                </div>
+
+                <div class="form-group form-group--full">
+                  <label for="contactMessage" class="form-label">Mensaje *</label>
+                  <textarea id="contactMessage" class="form-textarea" placeholder="Describe el vehículo, servicio o consulta que deseas realizar..." required></textarea>
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="btn btn--primary">Send Message</button>
+                <button type="button" class="btn btn--outline" data-form-mode="quote">Request a Quote</button>
+                <button type="button" class="btn btn--outline" data-form-mode="appointment">Book an Appointment</button>
+              </div>
+
+              <div id="formFeedback" class="form-feedback" role="status" aria-live="polite"></div>
+            </form>
+          </div>
+
+          <!-- Información lateral y canales directos -->
+          <aside class="contact-aside">
+            <div class="info-box">
+              <span class="eyebrow">Canales Directos</span>
+              <h3>Concierge Shadow Motors</h3>
+              <ul>
+                <li><strong>Correo:</strong> concierge@shadowmotors.example</li>
+                <li><strong>Teléfono:</strong> +1 (555) 019-2834</li>
+                <li><strong>Horario:</strong> Lunes a Sábado · 10:00 – 19:00</li>
+              </ul>
+
+              <div class="direct-channels">
+                <a href="https://whatsapp.com" target="_blank" rel="noopener noreferrer" class="btn btn--outline">WhatsApp</a>
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="btn btn--outline">Instagram</a>
+                <a href="mailto:concierge@shadowmotors.example" class="btn btn--outline">Email Us</a>
+              </div>
+            </div>
+
+            <div class="info-box">
+              <span class="eyebrow">Showroom &amp; Atelier</span>
+              <h3>Ubicación</h3>
+              <p>Av. del Parque 450, Distrito Financiero.</p>
+              <p>Las visitas y pruebas dinámicas se coordinan exclusivamente mediante cita previa para garantizar privacidad.</p>
+            </div>
+          </aside>
+        </div>
+
+        <!-- Secciones legales referenciadas desde el footer -->
+        <div class="legal-box">
+          <div id="privacy">
+            <h3>Política de Privacidad</h3>
+            <p>
+              Los datos personales proporcionados mediante los formularios de Shadow Motors
+              se utilizan únicamente para dar seguimiento a solicitudes de información,
+              cotizaciones y citas privadas, bajo estricta confidencialidad.
+            </p>
+          </div>
+          <div id="terms">
+            <h3>Términos y Condiciones</h3>
+            <p>
+              Las especificaciones, precios y tiempos de entrega mostrados en el sitio son
+              de carácter informativo y están sujetos a confirmación formal por escrito por
+              parte de un asesor autorizado de Shadow Motors.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="brand-logo">SHADOW MOTORS</a>
+          <p class="brand-slogan">Redefining Automotive Luxury</p>
+          <p>Vehículos exclusivos, personalización estética y optimización de rendimiento con enfoque sobrio y de precisión.</p>
+        </div>
+        <div>
+          <h3 class="footer-heading">Navegación</h3>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="collection.html">Collection</a></li>
+            <li><a href="bespoke.html">Bespoke</a></li>
+            <li><a href="performance.html">Performance</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="footer-heading">Contacto y Redes</h3>
+          <ul class="footer-links">
+            <li><a href="mailto:concierge@shadowmotors.example">concierge@shadowmotors.example</a></li>
+            <li><a href="tel:+15550192834">+1 (555) 019-2834</a></li>
+            <li><a href="contact.html">Agendar Cita / Cotizar</a></li>
+            <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+            <li><a href="https://whatsapp.com" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="footer-heading">Ubicación</h3>
+          <ul class="footer-links">
+            <li>Shadow Motors Atelier &amp; Showroom</li>
+            <li>Av. del Parque 450, Distrito Financiero</li>
+            <li>Atención con cita previa</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© <span data-current-year>2026</span> SHADOW MOTORS. Todos los derechos reservados.</p>
+        <div class="footer-legal">
+          <a href="contact.html#privacy">Política de Privacidad</a>
+          <a href="contact.html#terms">Términos y Condiciones</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/forms.js"></script>
+</body>
+</html>

@@ -1,0 +1,256 @@
+/* ==========================================================================
+   SHADOW MOTORS — Estilos Exclusivos de Home (index.html)
+   ========================================================================== */
+
+main.home-main {
+  padding-top: 0;
+}
+
+/* Hero principal */
+.hero {
+  position: relative;
+  min-height: 92vh;
+  display: flex;
+  align-items: center;
+  padding-top: var(--header-height);
+  padding-bottom: 4rem;
+  overflow: hidden;
+  background-color: var(--color-bg-primary);
+}
+
+.hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0.58;
+  transform: scale(1.02);
+  transition: transform 1.2s var(--transition-slow);
+}
+
+.hero:hover .hero__img {
+  transform: scale(1.05);
+}
+
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-hero-overlay);
+  z-index: 1;
+}
+
+.hero__content {
+  position: relative;
+  z-index: 2;
+  max-width: 740px;
+  padding-block: 2rem;
+}
+
+.hero__brand {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: clamp(2.25rem, 5.5vw, 4.5rem);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  line-height: 1.08;
+  background: var(--gradient-logo);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 0.65rem;
+}
+
+.hero__slogan {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.35rem, 2.5vw, 2rem);
+  color: var(--color-text-primary);
+  margin-bottom: 1.35rem;
+}
+
+.hero__description {
+  color: var(--color-text-muted);
+  font-size: clamp(0.95rem, 1.25vw, 1.08rem);
+  max-width: 56ch;
+  margin-bottom: 2.25rem;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+}
+
+/* Encabezado de bloque con enlace lateral */
+.section-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+/* Vehículos destacados */
+.featured-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.75rem;
+}
+
+.vehicle-card {
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  transition: border-color var(--transition-base), transform var(--transition-base);
+}
+
+.vehicle-card:hover {
+  border-color: var(--color-border-strong);
+  transform: translateY(-4px);
+}
+
+.vehicle-card__media {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background-color: var(--color-bg-primary);
+}
+
+.vehicle-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.vehicle-card:hover .vehicle-card__media img {
+  transform: scale(1.04);
+}
+
+.vehicle-card__body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.vehicle-card__meta {
+  font-size: var(--text-xs);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.vehicle-card__title {
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  font-weight: 400;
+  color: var(--color-text-primary);
+}
+
+.vehicle-card__specs {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  margin-top: auto;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.vehicle-card__price {
+  font-size: var(--text-base);
+  font-weight: 500;
+  color: var(--color-text-primary);
+  margin-top: 0.5rem;
+}
+
+/* Las tres divisiones */
+.divisions-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.75rem;
+}
+
+.division-card {
+  position: relative;
+  min-height: 420px;
+  background-color: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  transition: border-color var(--transition-base);
+}
+
+.division-card:hover {
+  border-color: var(--color-border-strong);
+}
+
+.division-card__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.42;
+  transition: transform var(--transition-slow), opacity var(--transition-base);
+}
+
+.division-card:hover .division-card__img {
+  transform: scale(1.05);
+  opacity: 0.55;
+}
+
+.division-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(8, 8, 8, 0.15) 0%, rgba(8, 8, 8, 0.92) 85%);
+}
+
+.division-card__content {
+  position: relative;
+  z-index: 2;
+  padding: 2rem;
+  width: 100%;
+}
+
+.division-card__title {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 400;
+  margin-bottom: 0.6rem;
+}
+
+.division-card__text {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  margin-bottom: 1.35rem;
+}
+
+/* Diseño adaptable */
+@media (max-width: 960px) {
+  .featured-grid,
+  .divisions-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    min-height: 82vh;
+  }
+}
+
+@media (max-width: 560px) {
+  .hero__actions .btn {
+    width: 100%;
+  }
+}

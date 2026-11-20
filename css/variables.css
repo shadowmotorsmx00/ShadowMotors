@@ -1,0 +1,55 @@
+/* ==========================================================================
+   SHADOW MOTORS — Variables de Diseño y Configuración Base
+   ========================================================================== */
+
+:root {
+  /* Paleta de colores oficial */
+  --color-bg-primary: #080808;     /* Negro profundo */
+  --color-bg-secondary: #171717;   /* Gris grafito */
+  --color-bg-elevated: #303030;    /* Gris acero */
+  --color-text-muted: #A7A7A7;     /* Plata */
+  --color-text-primary: #F1F1F1;   /* Blanco humo */
+  --color-white: #FFFFFF;
+  --color-border: rgba(241, 241, 241, 0.12);
+  --color-border-strong: rgba(167, 167, 167, 0.35);
+
+  /* Estados y retroalimentación discreta */
+  --color-success: #4ade80;
+  --color-error: #f87171;
+
+  /* Degradados metálicos */
+  --gradient-logo: linear-gradient(135deg, #F1F1F1 0%, #A7A7A7 48%, #525252 100%);
+  --gradient-surface: linear-gradient(180deg, rgba(23, 23, 23, 0.92) 0%, rgba(8, 8, 8, 0.98) 100%);
+  --gradient-hero-overlay: linear-gradient(
+    90deg,
+    rgba(8, 8, 8, 0.92) 0%,
+    rgba(8, 8, 8, 0.65) 55%,
+    rgba(8, 8, 8, 0.35) 100%
+  );
+
+  /* Tipografías */
+  --font-display: 'Cormorant Garamond', 'Cinzel', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Escala tipográfica fluida */
+  --text-xs: 0.75rem;      /* 12px */
+  --text-sm: 0.875rem;     /* 14px */
+  --text-base: 1rem;       /* 16px */
+  --text-lg: 1.125rem;     /* 18px */
+  --text-xl: 1.5rem;       /* 24px */
+  --text-2xl: clamp(1.75rem, 3vw, 2.5rem);
+  --text-hero: clamp(2.5rem, 6vw, 4.75rem);
+
+  /* Espaciados y contenedor */
+  --container-max: 1320px;
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+  --section-py: clamp(4.5rem, 9vw, 8rem);
+  --header-height: 76px;
+
+  /* Bordes y transiciones */
+  --radius-none: 0px;
+  --radius-sm: 2px;
+  --transition-fast: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-base: 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-slow: 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
