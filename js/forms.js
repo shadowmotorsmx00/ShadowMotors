@@ -1,130 +1,171 @@
-/* ==========================================================================
-   SHADOW MOTORS — Manejo de Formularios de Contacto, Cotizaciones y Citas
-   ========================================================================== */
+import { auth, db } from "./firebase-config.js";
+import { MAIL_CONFIG } from "./mail-config.js";
+import {
+  collection,
+  addDoc,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+import emailjs from "https://cdn.jsdelivr.net/npm/@emailjs/browser@4/+esm";
 
-document.addEventListener('DOMContentLoaded', () => {
-  const contactForm = document.getElementById('contactForm');
-  if (!contactForm) return;
-
-  prefillFormFromURL();
-  bindQuickModeButtons();
-  bindContactSubmit(contactForm);
-});
-
-/**
- * Lee parámetros de la URL (?subject=quote&vehicle=...) y prepara el formulario
- */
-function prefillFormFromURL() {
-  const params = new URLSearchParams(window.location.search);
-  const subjectParam = params.get('subject');
-  const vehicleParam = params.get('vehicle');
-  const serviceParam = params.get('service');
-
-  const subjectSelect = document.getElementById('contactSubject');
-  const messageField = document.getElementById('contactMessage');
-  const dateGroup = document.getElementById('appointmentDateGroup');
-
-  if (subjectParam && subjectSelect) {
-    const validValues = ['general', 'quote', 'appointment', 'bespoke', 'performance', 'info'];
-    if (validValues.includes(subjectParam)) {
-      subjectSelect.value = subjectParam;
-    }
-  }
-
-  if (dateGroup && subjectSelect) {
-    dateGroup.style.display = subjectSelect.value === 'appointment' ? 'flex' : 'none';
-    subjectSelect.addEventListener('change', () => {
-      dateGroup.style.display = subjectSelect.value === 'appointment' ? 'flex' : 'none';
-    });
-  }
-
-  if (messageField && !messageField.value) {
-    if (vehicleParam && subjectParam === 'quote') {
-      messageField.value = `Solicito una cotización formal y condiciones de entrega para el vehículo: ${vehicleParam}.`;
-    } else if (vehicleParam) {
-      messageField.value = `Me gustaría recibir ficha técnica y disponibilidad detallada sobre: ${vehicleParam}.`;
-    } else if (serviceParam) {
-      messageField.value = `Estoy interesado en solicitar información y presupuesto para el servicio: ${serviceParam}.`;
-    }
-  }
+if (MAIL_CONFIG.publicKey && !MAIL_CONFIG.publicKey.startsWith("TU_")) {
+  emailjs.init({ publicKey: MAIL_CONFIG.publicKey });
 }
 
-/**
- * Permite que los botones "Request a Quote" y "Book an Appointment" ajusten el formulario
- */
-function bindQuickModeButtons() {
-  const subjectSelect = document.getElementById('contactSubject');
-  const dateGroup = document.getElementById('appointmentDateGroup');
-  const formTitle = document.getElementById('formDynamicTitle');
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.querySelector("#contactForm, form[data-shadow-form='contact'], form");
+  if (!form || form.dataset.firestoreBound === "true") return;
+  form.dataset.firestoreBound = "true";
 
-  document.querySelectorAll('[data-form-mode]').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const mode = btn.dataset.formMode;
-      if (!subjectSelect) return;
+  const subjectSelect = form.querySelector("#contactSubject, [name='requestType'], [name='type'], [name='service'], #requestType");
+  const appointmentDateGroup = form.querySelector("#appointmentDateGroup");
+  const appointmentDateInput = form.querySelector("#appointmentDate");
+  const feedbackEl = form.querySelector("#formFeedback") || document.getElementById("formFeedback");
 
-      subjectSelect.value = mode;
-      if (dateGroup) {
-        dateGroup.style.display = mode === 'appointment' ? 'flex' : 'none';
-      }
+  const showNotice = (msg, isError = false) => {
+    if (feedbackEl) {
+      feedbackEl.textContent = msg;
+      feedbackEl.classList.remove("is-success", "is-error");
+      feedbackEl.classList.add("is-visible", isError ? "is-error" : "is-success");
+      feedbackEl.style.display = "block";
+      feedbackEl.style.marginTop = "1rem";
+      feedbackEl.style.padding = "0.75rem 1rem";
+      feedbackEl.style.borderRadius = "4px";
+      feedbackEl.style.fontSize = "0.9rem";
+      feedbackEl.style.background = isError ? "rgba(180, 50, 50, 0.16)" : "rgba(255, 255, 255, 0.06)";
+      feedbackEl.style.border = isError ? "1px solid rgba(220, 80, 80, 0.45)" : "1px solid rgba(255, 255, 255, 0.18)";
+      feedbackEl.style.color = isError ? "#f39b9b" : "#f2f2f2";
+    }
+  };
 
-      if (formTitle) {
-        if (mode === 'quote') formTitle.textContent = 'Solicitar Cotización Personalizada';
-        else if (mode === 'appointment') formTitle.textContent = 'Agendar Cita Privada en Showroom';
-        else formTitle.textContent = 'Enviar Consulta Directa';
-      }
+  const syncSubjectMode = () => {
+    if (!subjectSelect || !appointmentDateGroup) return;
+    appointmentDateGroup.style.display = subjectSelect.value === "appointment" ? "" : "none";
+  };
 
-      document.getElementById('contactName')?.focus();
-    });
-  });
-}
+  if (subjectSelect) {
+    subjectSelect.addEventListener("change", syncSubjectMode);
+    syncSubjectMode();
+  }
 
-/**
- * Valida y procesa el envío del formulario (se conectará al backend en la Etapa 9)
- */
-function bindContactSubmit(form) {
-  const feedback = document.getElementById('formFeedback');
+  const getVal = (selectors) => {
+    for (const sel of selectors) {
+      const el = form.querySelector(sel);
+      if (el && typeof el.value === "string") return el.value.trim();
+    }
+    return "";
+  };
 
-  form.addEventListener('submit', async (event) => {
-    event.preventDefault();
+  const getSubjectLabel = () => {
+    if (!subjectSelect) return "Solicitud";
+    const selectedOpt = subjectSelect.options[subjectSelect.selectedIndex];
+    return (selectedOpt ? selectedOpt.textContent : subjectSelect.value).trim() || "Solicitud";
+  };
 
-    const name = document.getElementById('contactName')?.value.trim();
-    const email = document.getElementById('contactEmail')?.value.trim();
-    const phone = document.getElementById('contactPhone')?.value.trim();
-    const subject = document.getElementById('contactSubject')?.value;
-    const appointmentDate = document.getElementById('appointmentDate')?.value || '';
-    const message = document.getElementById('contactMessage')?.value.trim();
+  const submitRequest = async (overrideMode = null) => {
+    if (overrideMode && subjectSelect) {
+      subjectSelect.value = overrideMode;
+      syncSubjectMode();
+    }
 
-    if (!name || !email || !message) {
-      showFeedback(feedback, 'Por favor completa los campos obligatorios: Nombre, Correo electrónico y Mensaje.', true);
+    const fullName = getVal(["#contactName", "[name='fullName']", "[name='name']", "#fullName", "#name"]);
+    const email = getVal(["#contactEmail", "[name='email']", "#email"]).toLowerCase();
+    const phone = getVal(["#contactPhone", "[name='phone']", "#phone"]);
+    const requestType = getSubjectLabel();
+    const preferredDate = appointmentDateInput ? appointmentDateInput.value.trim() : "";
+    const params = new URLSearchParams(window.location.search);
+    const vehicleFromUrl = params.get("vehicle") || params.get("model") || "";
+    const vehicleOrService =
+      getVal(["[name='model']", "[name='vehicle']", "#modelInput"]) ||
+      vehicleFromUrl ||
+      (preferredDate ? `Cita (${preferredDate})` : "No especificado");
+    const message = getVal(["#contactMessage", "[name='message']", "[name='notes']", "#message"]);
+
+    if (!fullName || !email || !message) {
+      showNotice("Completa nombre, correo y mensaje.", true);
       return;
     }
 
-    // Guardar registro local temporal mientras conectamos MySQL en Etapa 9
-    const submissions = JSON.parse(localStorage.getItem('shadow_motors_requests') || '[]');
-    submissions.push({
-      id: Date.now(),
-      name,
-      email,
-      phone,
-      subject,
-      appointmentDate,
-      message,
-      createdAt: new Date().toISOString()
+    const actionButtons = Array.from(form.querySelectorAll("button[type='submit'], input[type='submit'], button[data-form-mode]"));
+    const prevStates = actionButtons.map((btn) => ({
+      el: btn,
+      disabled: btn.disabled,
+      text: btn.textContent
+    }));
+
+    actionButtons.forEach((btn) => {
+      btn.disabled = true;
     });
-    localStorage.setItem('shadow_motors_requests', JSON.stringify(submissions));
+    const submitBtn = form.querySelector("button[type='submit'], input[type='submit']");
+    if (submitBtn) {
+      submitBtn.textContent = "Enviando...";
+    }
 
-    showFeedback(
-      feedback,
-      `Gracias, ${name}. Tu solicitud ha sido registrada correctamente por nuestro equipo de Shadow Motors. Nos pondremos en contacto contigo a la brevedad.`,
-      false
-    );
-    form.reset();
+    try {
+      const payload = {
+        userId: auth.currentUser ? auth.currentUser.uid : null,
+        fullName,
+        email,
+        phone,
+        requestType,
+        vehicleOrService,
+        preferredDate: preferredDate || null,
+        message,
+        status: "Pendiente",
+        createdAt: serverTimestamp()
+      };
+
+      const docRef = await addDoc(collection(db, "requests"), payload);
+
+      let mailSent = false;
+      if (
+        MAIL_CONFIG.publicKey &&
+        !MAIL_CONFIG.publicKey.startsWith("TU_") &&
+        MAIL_CONFIG.serviceId &&
+        !MAIL_CONFIG.serviceId.startsWith("TU_") &&
+        MAIL_CONFIG.templateId &&
+        !MAIL_CONFIG.templateId.startsWith("TU_")
+      ) {
+        await emailjs.send(MAIL_CONFIG.serviceId, MAIL_CONFIG.templateId, {
+          folio: docRef.id.slice(0, 7).toUpperCase(),
+          full_name: fullName,
+          email,
+          phone: phone || "No proporcionado",
+          request_type: requestType,
+          vehicle_or_service: vehicleOrService,
+          preferred_date: preferredDate || "No especificada",
+          message
+        });
+        mailSent = true;
+      }
+
+      form.reset();
+      syncSubjectMode();
+      const folio = docRef.id.slice(0, 7).toUpperCase();
+      showNotice(
+        mailSent
+          ? `Solicitud enviada correctamente · Folio ${folio}`
+          : `Solicitud recibida · Folio ${folio}. Nuestro equipo se pondrá en contacto pronto.`
+      );
+    } catch (err) {
+      console.error("Error en envío:", err);
+      showNotice("No se pudo enviar la solicitud. Intenta de nuevo en un momento.", true);
+    } finally {
+      prevStates.forEach(({ el, disabled, text }) => {
+        el.disabled = disabled;
+        if (typeof text === "string") el.textContent = text;
+      });
+    }
+  };
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    await submitRequest(null);
   });
-}
 
-function showFeedback(el, text, isError) {
-  if (!el) return;
-  el.textContent = text;
-  el.classList.remove('is-success', 'is-error');
-  el.classList.add('is-visible', isError ? 'is-error' : 'is-success');
-}
+  form.querySelectorAll("button[data-form-mode]").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const mode = btn.dataset.formMode || null;
+      await submitRequest(mode);
+    });
+  });
+});

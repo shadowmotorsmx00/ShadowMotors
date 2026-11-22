@@ -421,3 +421,39 @@ ol {
     grid-template-columns: 1fr;
   }
 }
+
+/* ==========================================================================
+   CUADROS DE AUTENTICACIÓN EN GRIS OSCURO CON TEXTO BLANCO
+   ========================================================================== */
+:is(div, section, dialog, form) input[type="email"],
+:is(div, section, dialog, form) input[type="password"],
+:is(div, section, dialog, form) input[type="text"],
+:is(div, section, dialog, form) input[type="tel"] {
+  background-color: #1c1c21 !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.24) !important;
+  caret-color: #ffffff !important;
+}
+
+:is(div, section, dialog, form) input[type="email"]:focus,
+:is(div, section, dialog, form) input[type="password"]:focus,
+:is(div, section, dialog, form) input[type="text"]:focus,
+:is(div, section, dialog, form) input[type="tel"]:focus {
+  background-color: #232329 !important;
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.5) !important;
+  outline: none !important;
+}
+
+:is(div, section, dialog, form) input::placeholder {
+  color: rgba(255, 255, 255, 0.45) !important;
+}
+
+:is(div, section, dialog, form) input:-webkit-autofill,
+:is(div, section, dialog, form) input:-webkit-autofill:hover,
+:is(div, section, dialog, form) input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #ffffff !important;
+  -webkit-box-shadow: 0 0 0 1000px #1c1c21 inset !important;
+  box-shadow: 0 0 0 1000px #1c1c21 inset !important;
+  border: 1px solid rgba(255, 255, 255, 0.35) !important;
+}

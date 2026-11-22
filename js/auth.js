@@ -2,6 +2,13 @@
    SHADOW MOTORS — Gestión de Cuenta de Usuario, Sesión y Favoritos
    ========================================================================== */
 
+import { db } from "./firebase-config.js";
+import {
+  doc,
+  setDoc,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+
 const AUTH_USER_KEY = 'shadow_motors_current_user';
 const AUTH_USERS_KEY = 'shadow_motors_users';
 const AUTH_FAVS_KEY = 'shadow_motors_favorites';
@@ -9,10 +16,48 @@ const AUTH_FAVS_KEY = 'shadow_motors_favorites';
 document.addEventListener('DOMContentLoaded', () => {
   updateHeaderAccountUI();
   bindAccountModalTriggers();
+  syncExistingUsersToFirestore();
 });
 
+async function syncUserToFirestore(userObj) {
+  if (!userObj || !userObj.email) return;
+  try {
+    const docId = encodeURIComponent(String(userObj.email).trim().toLowerCase());
+    await setDoc(
+      doc(db, "users", docId),
+      {
+        fullName: userObj.fullName || "—",
+        email: String(userObj.email).trim().toLowerCase(),
+        phone: userObj.phone || "",
+        role: userObj.role || "client",
+        createdAt: userObj.createdAt || serverTimestamp(),
+        updatedAt: serverTimestamp()
+      },
+      { merge: true }
+    );
+  } catch (err) {
+    console.warn("No se pudo sincronizar usuario con Firestore:", err);
+  }
+}
+
+async function syncExistingUsersToFirestore() {
+  try {
+    const users = JSON.parse(localStorage.getItem(AUTH_USERS_KEY) || '[]');
+    const current = getCurrentUser();
+    const list = Array.isArray(users) ? [...users] : [];
+    if (current && !list.some((u) => u.email === current.email)) {
+      list.push(current);
+    }
+    for (const u of list) {
+      await syncUserToFirestore(u);
+    }
+  } catch {
+    // Ignorar errores de lectura de localStorage
+  }
+}
+
 /**
- * Obtiene el usuario con sesión activa (si existe)
+- Obtiene el usuario con sesión activa (si existe)
  */
 function getCurrentUser() {
   try {
@@ -23,7 +68,7 @@ function getCurrentUser() {
 }
 
 /**
- * Registra un nuevo usuario en almacenamiento local (base previa a conectar API/BD)
+- Registra un nuevo usuario en almacenamiento local (base previa a conectar API/BD)
  */
 function registerUser({ fullName, email, phone, password }) {
   const cleanName = (fullName || '').trim();
@@ -59,12 +104,13 @@ function registerUser({ fullName, email, phone, password }) {
   localStorage.setItem(AUTH_USERS_KEY, JSON.stringify(users));
   localStorage.setItem(AUTH_USER_KEY, JSON.stringify(newUser));
 
+  syncUserToFirestore(newUser);
   updateHeaderAccountUI();
   return { ok: true, message: `Cuenta creada. Bienvenido a Shadow Motors, ${newUser.fullName}.`, user: newUser };
 }
 
 /**
- * Inicia sesión con correo y contraseña
+- Inicia sesión con correo y contraseña
  */
 function loginUser(email, password) {
   const cleanEmail = (email || '').trim().toLowerCase();
@@ -84,16 +130,18 @@ function loginUser(email, password) {
     fullName: found.fullName,
     email: found.email,
     phone: found.phone,
-    role: found.role
+    role: found.role,
+    createdAt: found.createdAt
   };
 
   localStorage.setItem(AUTH_USER_KEY, JSON.stringify(sessionUser));
+  syncUserToFirestore(sessionUser);
   updateHeaderAccountUI();
   return { ok: true, message: `Sesión iniciada como ${sessionUser.fullName}.`, user: sessionUser };
 }
 
 /**
- * Cierra la sesión actual
+- Cierra la sesión actual
  */
 function logoutUser() {
   localStorage.removeItem(AUTH_USER_KEY);
@@ -101,7 +149,7 @@ function logoutUser() {
 }
 
 /**
- * Actualiza el botón de Cuenta y contador de Favoritos en el encabezado
+- Actualiza el botón de Cuenta y contador de Favoritos en el encabezado
  */
 function updateHeaderAccountUI() {
   const user = getCurrentUser();
@@ -123,7 +171,7 @@ function updateHeaderAccountUI() {
 }
 
 /**
- * Crea y abre un modal minimalista para Registro, Inicio de Sesión y Perfil de Usuario
+- Crea y abre un modal minimalista para Registro, Inicio de Sesión y Perfil de Usuario
  */
 function bindAccountModalTriggers() {
   document.querySelectorAll('a[href="contact.html"]').forEach((link) => {
